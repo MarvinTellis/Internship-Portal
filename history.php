@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Applicant list</title>
+  <title>History</title>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +11,10 @@
   
   <!-- Custom fonts for this template-->
   <link href="css/all.min.css" rel="stylesheet" type="text/css">
-  
+    
+  <!-- Page level plugin CSS-->
+  <link href="datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
   <!-- Custom styles for this template-->
   <link href="css/dashboard.css" rel="stylesheet">
 
@@ -25,12 +28,6 @@
 <body id="dashboard">
 
   <?php include('navigation.php'); ?>
-
-  <?php
-    // Retrieve the URL variables (using PHP).
-    $i_id = $_GET["id"];
-  ?>
-
 
     <div id="wrapper">
 
@@ -46,12 +43,12 @@
             <i class="fa fa-fw fa-pencil"></i>
             <span>New Internship</span></a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item ">
           <a class="nav-link" href="view_internship.php">
             <i class="fa fa-fw fa-folder-open"></i>
             <span>View Internships</span></a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item active">
           <a class="nav-link" href="history.php">
             <i class="fa fa-fw fa-history"></i>
             <span>History</span></a>
@@ -67,52 +64,44 @@
 
         <div class="container-fluid">
 
-          <?php
-
-          $sql = "SELECT * FROM inhouse where internship_id = '$i_id' ";
-          $result = $conn->query($sql);
-          $row = $result->fetch_assoc();
-
-          ?>
-
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
               <a href="dashboard.php">Dashboard</a>
             </li>
-            <li class="breadcrumb-item">
-              <a href="view_internship.php">View Internships</a>
-            </li>
-            <li class="breadcrumb-item">
-              <a href='display.php?id=<?php echo $i_id ?>'><?php echo $row["name"] ?></a>
-            </li>
-            <li class="breadcrumb-item active"> Applicants list </li>
+            <li class="breadcrumb-item active">History</li>
           </ol>
 
-          <h3>List of applicants: </h3><br>
-
-          <div class="table-responsive">
-            <table border="2px" cellpadding="15px">
-              <tr>
-                <th>Student ID</th>
-                <th>Name</th>
-                <th>Year</th>
-                <th>Branch</th>
-              </tr>
-
-            <?php
-
-            $sql = "SELECT * FROM applicants where internship_id = '$i_id' ";
-            $result = $conn->query($sql);
-
-            while($row = $result->fetch_assoc())
-            {
-              echo "<tr>";
-                echo "<td>". $row["student_id"] . "</td>";
-              echo "</tr>";
-            }
-            ?>
-            </table>
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-table"></i>
+              <b>Internships completed by you</b></div>
+            <div class="card-body">
+          
+                <div class="table-responsive">
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                    <th>NAME</th>
+                    <th>TOPIC</th>
+                    <th>NO OF APPLICANTS</th>
+                    <th>VIEW APPLICANT LIST</th>
+                  </tr>
+                    </thead>
+                    <tfoot>
+                      <tr>
+                    <th>NAME</th>
+                    <th>TOPIC</th>
+                    <th>NO OF APPLICANTS</th>
+                    <th>VIEW APPLICANT LIST</th>
+                  </tr>
+                    </tfoot>
+                    <tbody>
+                    </tbody>
+                  </table>
+              </div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
           </div>
 
         </div>
@@ -130,6 +119,16 @@
 
     </div>
     <!-- /#wrapper -->
+    
+
+    <!-- Page level plugin JavaScript-->
+    <script src="datatables/jquery.dataTables.js"></script>
+    <script src="datatables/dataTables.bootstrap4.js"></script>
+    
+    <!-- Demo scripts for this page-->
+    <script src="js/demo/datatables-demo.js"></script>
+
+
 
   </body>
   </html>

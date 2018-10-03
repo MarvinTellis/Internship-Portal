@@ -35,9 +35,6 @@ if (isset($_POST['float'])) {
     if (mysqli_num_rows($r) == 1) 
     {
         echo "<script> alert('New Internship floated successfully'); </script>" ;
-        header('location: view_internship.php');
     }
 }
-
 ?>
-

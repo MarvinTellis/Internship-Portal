@@ -24,8 +24,8 @@
 
 <body id="dashboard">
 
-  <?php include('navigation.php'); ?>
-
+  <?php include('navigation.php');?>
+    
     <div id="wrapper">
 
       <ul class="sidebar navbar-nav">
@@ -45,10 +45,15 @@
             <i class="fa fa-fw fa-folder-open"></i>
             <span>View Internships</span></a>
         </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="history.php">
+            <i class="fa fa-fw fa-history"></i>
+            <span>History</span></a>
+        </li>
         <li class="nav-item">
-          <a class="nav-link" href="tables.html">
+          <a class="nav-link" href="profile.php">
             <i class="fa fa-fw fa-cog"></i>
-            <span>Settings</span></a>
+            <span>Profile</span></a>
         </li>
       </ul>
 
@@ -67,8 +72,8 @@
           <div class="card-header">Float New Internship</div>
             <div class="card-body">
 
-              <form method="post" action="new_internship.php">
-                <?php include('insert.php'); ?>
+              <form method="post" onsubmit="return validation()" action="new_internship.php">
+                <?php include('insert.php');?>
               
 
                 <div class="form-group">
@@ -114,9 +119,19 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="form-label-group">
-                    <input type="text" id="department" name = "department" class="form-control" placeholder="Department" required="required">
-                    <label for="department">Department</label>
+                  <div class="form-row">
+                  	<div class="col-md-6">
+                  		<div class="form-label-group">
+                   		<input type="text" id="department" name = "department" class="form-control" placeholder="Department" required="required">
+                    	<label for="department">Department</label>
+                  		</div>
+                  	</div>
+                  	<div class="col-md-6">
+                  		<div class="form-label-group">
+                  			<input type="number" id="students" name="students" class="form-control" placeholder="Students required" required="required">
+                  			<label for="students">Students Required</label>
+                  		</div>
+                  	</div>
                   </div>
                 </div>
                 <div class="form-group">
@@ -127,22 +142,65 @@
                 </div>
                 <div class="form-group">
                    <div class="form-row"> 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <div class="form-label-group">
                         <input type="date" id="startdate" name = "startdate" class="form-control" placeholder="Start date(yyyy-mm-dd)" required="required">
                         <label for="startdate">Start Date</label>
                       </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <div class="form-label-group">
                         <input type="date" id="enddate" name="enddate" class="form-control" placeholder="End date(yyyy-mm-dd)" required="required">
                         <label for="enddate">End Date</label>
                       </div>
                     </div>
+                    <div class="col-md-4">
+                      <div class="form-label-group">
+                        <input type="date" id="approvedate" name = "approvedate" class="form-control" placeholder="Approve date(yyyy-mm-dd)" required="required">
+                        <label for="approvedate">Approval Date</label>
+                      </div>
+                    </div>
                     </div>
                 </div>
+
+                <span id="warning" class="text-danger font-weight-bold"> </span>
+
                 <button class="btn btn-primary btn-block" type="submit" name="float">Float Internship</button>
               </form>
+
+              <script type="text/javascript">
+    
+
+              function validation(){
+
+                var start = document.getElementById('startdate').value;
+                var end = document.getElementById('enddate').value;
+                var approve = document.getElementById('approvedate').value;
+                var num = document.getElementById('students').value;
+
+                var d1 = new Date(start);
+                var d2 = new Date(end);
+                var d3 = new Date(approve);
+
+                //window.alert(new_value);
+                if(isNaN(num)){
+		        	document.getElementById('warning').innerHTML =" ** Please enter only numbers in the Students field **";
+		        	return false;
+		      	}
+                if(d1>d2){
+                	document.getElementById('warning').innerHTML =" ** Please enter a valid period for the internship **";
+                    return false;
+                }
+
+                if( d1>=d3){
+                	document.getElementById('warning').innerHTML =" ** Please enter a valid approval date for the internship **";
+                    return false;
+                } 
+              }
+
+              </script>
+
+
             </div>
           </div>
           <!-- /#card -->

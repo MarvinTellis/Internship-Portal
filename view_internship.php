@@ -28,6 +28,23 @@
 
 <body id="dashboard">
 
+  <?php 
+
+    if (isset($_POST['drop']))
+    {//to run PHP script on submit
+      if(!empty($_POST['check_list']))
+      {
+      // Loop to store and display values of individual checked checkbox.
+        foreach($_POST['check_list'] as $selected)
+        {
+        echo $selected."</br>";
+        }
+      }
+    }
+
+
+  ?>
+
   <?php include('navigation.php'); ?>
 
     <div id="wrapper">
@@ -49,10 +66,15 @@
             <i class="fa fa-fw fa-folder-open"></i>
             <span>View Internships</span></a>
         </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="history.php">
+            <i class="fa fa-fw fa-history"></i>
+            <span>History</span></a>
+        </li>
         <li class="nav-item">
-          <a class="nav-link" href="tables.html">
+          <a class="nav-link" href="profile.php">
             <i class="fa fa-fw fa-cog"></i>
-            <span>Settings</span></a>
+            <span>Profile</span></a>
         </li>
       </ul>
 
@@ -63,8 +85,8 @@
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href="dashboard.php">Dashboard</a>
-            </li>s
+              <a href="dashboard.php">Dashboard </a>
+            </li>
             <li class="breadcrumb-item active">View Internships</li>
           </ol>
             
@@ -73,6 +95,7 @@
               <i class="fa fa-table"></i>
               Internships floated by you</div>
             <div class="card-body">
+              <form action="#" method="post">
             	<?php 
 		          $sql = "SELECT * FROM inhouse where f_id = '$fid' ";
 		          $result = $conn->query($sql);
@@ -89,7 +112,10 @@
 			            	<th>NAME</th>
 			        	    <th>TOPIC</th>
 			        	    <th>NO OF APPLICANTS</th>
+                    <th>START DATE</th>
+                    <th>END DATE</th>
 			        	    <th>VIEW APPLICANT LIST</th>
+                    <th></th>
 			            </tr>
 	                  </thead>
 	                  <tfoot>
@@ -97,7 +123,10 @@
 			            	<th>NAME</th>
 			        	    <th>TOPIC</th>
 			        	    <th>NO OF APPLICANTS</th>
+                    <th>START DATE</th>
+                    <th>END DATE</th>
 			        	    <th>VIEW APPLICANT LIST</th>
+                    <th></th>
 			            </tr>
 	                  </tfoot>
 	                  <tbody>
@@ -113,11 +142,15 @@
 			                echo "<td><a href= 'display.php?id=$i_id'>". $row["name"] . "</a></td>";
 			                echo "<td>" . $row["topic"] . "</td>";
 			                echo "<td>" . $no_applicants. "</td>";
+                      echo "<td>" . $row["start_date"] . "</td>";
+                      echo "<td>" . $row["end_date"] . "</td>";
 			                echo "<td><a href= 'applicant_list.php?id=$i_id'> View >> </a></td>";
+                      echo "<td><input type='checkbox' name='check_list[]' value= '$i_id'> </td>";
 			              echo "</tr>";
-			            }?>
+			            }
+                  ?>
 			           </tbody>
-                	</table>
+                </table>
                 <?php
 			       }
 			        else{
@@ -125,7 +158,10 @@
 			          }
 			          ?>
               </div>
+              <button class="btn btn-primary" type="submit" name="drop" style="margin: 20px; float: right;"> DROP </button>
+            </form>
             </div>
+
             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
           </div>
 

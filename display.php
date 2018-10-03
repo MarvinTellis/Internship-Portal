@@ -57,10 +57,15 @@
             <i class="fa fa-fw fa-folder-open"></i>
             <span>View Internships</span></a>
         </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="history.php">
+            <i class="fa fa-fw fa-history"></i>
+            <span>History</span></a>
+        </li>
         <li class="nav-item">
-          <a class="nav-link" href="tables.html">
+          <a class="nav-link" href="profile.php">
             <i class="fa fa-fw fa-cog"></i>
-            <span>Settings</span></a>
+            <span>Profile</span></a>
         </li>
       </ul>
 
